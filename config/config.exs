@@ -23,6 +23,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Authentication
+config :genialais, :pow,
+  user: Genialais.Users.User,
+  repo: Genialais.Repo
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
