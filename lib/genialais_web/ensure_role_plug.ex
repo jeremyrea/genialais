@@ -1,4 +1,4 @@
-defmodule Genialais.EnsureRolePlug do
+defmodule GenialaisWeb.EnsureRolePlug do
   @moduledoc """
   This plug ensures that a user has a particular role.
 
@@ -12,7 +12,7 @@ defmodule Genialais.EnsureRolePlug do
   """
   import Plug.Conn, only: [halt: 1]
 
-  alias Genialais.Router.Helpers, as: Routes
+  alias GenialaisWeb.Router.Helpers, as: Routes
   alias Phoenix.Controller
   alias Plug.Conn
   alias Pow.Plug
