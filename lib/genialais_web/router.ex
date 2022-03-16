@@ -19,6 +19,10 @@ defmodule GenialaisWeb.Router do
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
+  pipeline :admin do
+    plug Genialais.EnsureRolePlug, :admin
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -29,6 +33,12 @@ defmodule GenialaisWeb.Router do
     pipe_through [:browser, :protected]
 
     get "/", PageController, :index
+  end
+
+  scope "/admin", GenialaisWeb do
+    pipe_through [:browser, :admin]
+
+    # ...
   end
 
   # Other scopes may use custom stacks.
