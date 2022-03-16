@@ -35,6 +35,9 @@ npm-debug.log
 
 # Sqlite
 genialais.db*
+genialais_test
+genialais_test-shm
+genialais_test-wal
 
 # Local development files
 rename_project.sh
