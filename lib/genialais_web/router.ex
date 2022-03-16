@@ -20,7 +20,7 @@ defmodule GenialaisWeb.Router do
   end
 
   pipeline :admin do
-    plug Genialais.EnsureRolePlug, :admin
+    plug GenialaisWeb.EnsureRolePlug, :admin
   end
 
   scope "/" do
@@ -30,7 +30,7 @@ defmodule GenialaisWeb.Router do
   end
 
   scope "/", GenialaisWeb do
-    pipe_through [:browser, :protected]
+    pipe_through [:browser]
 
     get "/", PageController, :index
   end
