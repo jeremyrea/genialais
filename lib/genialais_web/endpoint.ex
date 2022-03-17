@@ -51,5 +51,6 @@ defmodule GenialaisWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :genialais
+  plug PowPersistentSession.Plug.Cookie
   plug GenialaisWeb.Router
 end

@@ -28,7 +28,7 @@ config :genialais, :pow,
   user: Genialais.Users.User,
   repo: Genialais.Repo,
   web_module: GenialaisWeb,
-  extensions: [PowInvitation],
+  extensions: [PowInvitation, PowPersistentSession],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   mailer_backend: GenialaisWeb.Pow.Mailer
 
