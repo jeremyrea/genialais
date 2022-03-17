@@ -43,7 +43,7 @@ defmodule GenialaisWeb.Router do
   end
 
   scope "/admin", GenialaisWeb do
-    pipe_through [:browser, :admin]
+    pipe_through [:browser, :protected, :admin]
 
     get "/", AdminController, :index
     post "/", AdminController, :update
