@@ -1,39 +1,33 @@
 defmodule Genialais.Users do
   alias Genialais.{Repo, Users.User}
+  import Ecto.Query
 
   @type t :: %User{}
 
-  @spec create_admin(map()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
-  def create_admin(params) do
+  @spec create_user(map()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
+  def create_user(params) do
     %User{}
     |> User.changeset(params)
-    |> User.changeset_role(%{role: "admin"})
     |> Repo.insert()
   end
 
-  @spec create_editor(map()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
-  def create_editor(params) do
-    %User{}
-    |> User.changeset(params)
-    |> User.changeset_role(%{role: "editor"})
-    |> Repo.insert()
-  end
-
-  @spec set_admin_role(t()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
-  def set_admin_role(user) do
+  @spec set_role(t(), t()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
+  def set_role(user, role) do
     user
-    |> User.changeset_role(%{role: "admin"})
-    |> Repo.update()
-  end
-
-  @spec set_editor_role(t()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
-  def set_editor_role(user) do
-    user
-    |> User.changeset_role(%{role: "editor"})
+    |> User.changeset_role(%{role: role})
     |> Repo.update()
   end
 
   @spec is_admin?(t()) :: boolean()
   def is_admin?(%{role: "admin"}), do: true
   def is_admin?(_any), do: false
+
+  def list_users() do
+    User 
+    |> order_by(desc: :id) 
+    |> Repo.all
+  end
+
+  @spec get_user(integer) :: User
+  def get_user(id), do: User |> Repo.get(id)
 end

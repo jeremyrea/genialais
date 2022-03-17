@@ -1,0 +1,10 @@
+<h2>Users</h2>
+
+<%= for user <- @users do %>
+  <%= form_for @conn, Routes.admin_path(@conn, :update, %{"uid": user.id}), fn f -> %>
+    <strong><%= user.email %>: </strong>
+    <%= select f, :role, ["Visitor": "visitor", "Editor": "editor", "Admin": "admin"], selected: user.role %>
+    <%= submit "Save" %>
+  <% end %>
+  <hr>
+<% end %>

@@ -5,16 +5,16 @@ defmodule Genialais.UsersTest do
 
   @valid_params %{email: "test@example.com", password: "secret1234", password_confirmation: "secret1234"}
 
-  test "create_admin/2" do
-    assert {:ok, user} = Users.create_admin(@valid_params)
-    assert user.role == "admin"
+  test "create_user/2" do
+    assert {:ok, user} = Users.create_user(@valid_params)
+    assert user.role == "visitor"
   end
 
-  test "set_admin_role/1" do
+  test "set_role/1" do
     assert {:ok, user} = Repo.insert(User.changeset(%User{}, @valid_params))
     assert user.role == "visitor"
 
-    assert {:ok, user} = Users.set_admin_role(user)
+    assert {:ok, user} = Users.set_role(user, "admin")
     assert user.role == "admin"
   end
 
@@ -24,7 +24,8 @@ defmodule Genialais.UsersTest do
     assert {:ok, user} = Repo.insert(User.changeset(%User{}, @valid_params))
     refute Users.is_admin?(user)
   
-    assert {:ok, admin} = Users.create_admin(%{@valid_params | email: "test2@example.com"})
+    assert {:ok, user2} = Users.create_user(%{@valid_params | email: "test2@example.com"})
+    assert {:ok, admin} = Users.set_role(user2, "admin")
     assert Users.is_admin?(admin)
   end
 end

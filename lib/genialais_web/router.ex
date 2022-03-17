@@ -38,7 +38,8 @@ defmodule GenialaisWeb.Router do
   scope "/admin", GenialaisWeb do
     pipe_through [:browser, :admin]
 
-    # ...
+    get "/", AdminController, :index
+    post "/", AdminController, :update
   end
 
   # Other scopes may use custom stacks.
