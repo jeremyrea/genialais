@@ -25,12 +25,6 @@ defmodule GenialaisWeb.Router do
     plug GenialaisWeb.EnsureRolePlug, :admin
   end
 
-  scope "/" do
-    pipe_through :browser
-
-    pow_routes()
-  end
-
   scope "/", GenialaisWeb do
     pipe_through [:browser]
 
@@ -39,7 +33,21 @@ defmodule GenialaisWeb.Router do
 
   scope "/", Pow.Phoenix, as: "pow" do
     pipe_through [:browser, :protected]
+    
     resources "/registration", RegistrationController, singleton: true, only: [:edit, :update, :delete]
+  end
+
+  scope "/", PowInvitation.Phoenix, as: "pow_invitation" do
+    pipe_through [:browser, :protected, :admin]
+
+    resources "/invitations", InvitationController, only: [:new, :create, :show]
+  end
+
+  scope "/" do
+    pipe_through :browser
+
+    pow_session_routes()
+    pow_extension_routes()
   end
 
   scope "/admin", GenialaisWeb do
@@ -47,7 +55,6 @@ defmodule GenialaisWeb.Router do
 
     get "/", AdminController, :index
     post "/", AdminController, :update
-    post "/new", AdminController, :create
     delete "/:uid", AdminController, :delete
   end
 

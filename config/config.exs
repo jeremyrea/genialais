@@ -29,7 +29,13 @@ config :genialais, :pow,
   repo: Genialais.Repo,
   web_module: GenialaisWeb,
   extensions: [PowInvitation],
-  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  mailer_backend: GenialaisWeb.Pow.Mailer
+
+# Configure mailer
+config :genialais, GenialaisWeb.Pow.Mailer,
+  adapter: Bamboo.LocalAdapter
+  #api_key: "my_api_key" # Specify adapter-specific configuration
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
