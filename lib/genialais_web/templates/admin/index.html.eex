@@ -1,10 +1,19 @@
 <h2>Users</h2>
 
+<%= form_for @conn, Routes.admin_path(@conn, :create, %{}), fn f -> %>
+  <%= text_input f, :email %>
+  <%= submit "Send invitation" %>
+<% end %>
+<hr>
 <%= for user <- @users do %>
   <%= form_for @conn, Routes.admin_path(@conn, :update, %{"uid": user.id}), fn f -> %>
     <strong><%= user.email %>: </strong>
-    <%= select f, :role, ["Visitor": "visitor", "Editor": "editor", "Admin": "admin"], selected: user.role %>
-    <%= submit "Save" %>
+    <%= if is_nil(user.invitation_accepted_at) && is_nil(user.password_hash) do %>
+      <span>(pending)</span>
+    <% else %>
+      <%= select f, :role, ["Visitor": "visitor", "Editor": "editor", "Admin": "admin"], selected: user.role %>
+      <%= submit "Save" %>
+    <% end %>
   <% end %>
   <%=link("Delete", to: "/admin/#{user.id}", method: :delete) %>
   <hr>

@@ -26,7 +26,10 @@ config :logger, :console,
 # Authentication
 config :genialais, :pow,
   user: Genialais.Users.User,
-  repo: Genialais.Repo
+  repo: Genialais.Repo,
+  web_module: GenialaisWeb,
+  extensions: [PowInvitation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

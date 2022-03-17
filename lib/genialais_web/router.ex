@@ -1,6 +1,8 @@
 defmodule GenialaisWeb.Router do
   use GenialaisWeb, :router
   use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+    extensions: [PowInvitation]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -35,11 +37,17 @@ defmodule GenialaisWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/", Pow.Phoenix, as: "pow" do
+    pipe_through [:browser, :protected]
+    resources "/registration", RegistrationController, singleton: true, only: [:edit, :update, :delete]
+  end
+
   scope "/admin", GenialaisWeb do
     pipe_through [:browser, :admin]
 
     get "/", AdminController, :index
     post "/", AdminController, :update
+    post "/new", AdminController, :create
     delete "/:uid", AdminController, :delete
   end
 
