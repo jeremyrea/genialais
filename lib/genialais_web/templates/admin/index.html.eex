@@ -6,5 +6,6 @@
     <%= select f, :role, ["Visitor": "visitor", "Editor": "editor", "Admin": "admin"], selected: user.role %>
     <%= submit "Save" %>
   <% end %>
+  <%=link("Delete", to: "/admin/#{user.id}", method: :delete) %>
   <hr>
 <% end %>

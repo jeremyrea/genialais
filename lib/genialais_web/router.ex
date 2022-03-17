@@ -40,6 +40,7 @@ defmodule GenialaisWeb.Router do
 
     get "/", AdminController, :index
     post "/", AdminController, :update
+    delete "/:uid", AdminController, :delete
   end
 
   # Other scopes may use custom stacks.

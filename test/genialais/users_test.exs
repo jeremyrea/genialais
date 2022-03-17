@@ -28,4 +28,13 @@ defmodule Genialais.UsersTest do
     assert {:ok, admin} = Users.set_role(user2, "admin")
     assert Users.is_admin?(admin)
   end
+
+  test "delete_user?/1" do
+    assert {:ok, user} = Users.create_user(@valid_params)
+    assert user = Users.get_user(user.id)
+    
+    assert {:ok, user} = Users.delete_user(user.id)
+
+    refute Users.get_user(user.id)
+  end
 end

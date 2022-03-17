@@ -16,4 +16,12 @@ defmodule GenialaisWeb.AdminController do
 
     conn |> redirect(to: "/admin") 
   end
+
+  def delete(conn, %{"uid" => uid}) do
+    uid 
+    |> String.to_integer
+    |> Users.delete_user
+
+    conn |> redirect(to: "/admin") 
+  end
 end

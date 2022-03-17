@@ -30,4 +30,7 @@ defmodule Genialais.Users do
 
   @spec get_user(integer) :: User
   def get_user(id), do: User |> Repo.get(id)
+
+  @spec delete_user(integer) :: {:ok, Ecto.Schema.t()} | {:error, Ecto.Changeset.t()}
+  def delete_user(id), do: %User{id: id} |> Repo.delete
 end
