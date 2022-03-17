@@ -22,6 +22,7 @@ defmodule GenialaisWeb do
       use Phoenix.Controller, namespace: GenialaisWeb
 
       import Plug.Conn
+      import GenialaisWeb.Pow.Helper
       import GenialaisWeb.Gettext
       alias GenialaisWeb.Router.Helpers, as: Routes
     end

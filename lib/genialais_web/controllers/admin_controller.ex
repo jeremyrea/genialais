@@ -13,8 +13,12 @@ defmodule GenialaisWeb.AdminController do
     uid
     |> Users.get_user()
     |> Users.set_role(role)
-
-    conn |> redirect(to: "/admin") 
+    |> case do
+      {:ok, user} ->
+        conn
+        |> sync_user(user)
+        |> redirect(to: "/admin") 
+    end
   end
 
   def delete(conn, %{"uid" => uid}) do
