@@ -20,7 +20,7 @@
               <%= select f, :locale, languages(), selected: Pow.Plug.current_user(@conn).locale, class: "locale-select", onchange: "this.form.submit()" %>
               <%= hidden_input f, :redirect_to, value: @conn.request_path %>
             <% end %>
-            <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
+            <%= link gettext("Sign out"), to: Routes.pow_session_path(@conn, :delete), method: :delete %>
           <% else %>
             <%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %>
           <% end %>
