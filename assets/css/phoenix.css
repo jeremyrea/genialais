@@ -24,6 +24,17 @@ pre{padding: 1em;}
   position: relative;
   width: 100%
 }
+.container .box {
+  max-width: 40rem;
+  border-style: solid;
+  padding: 2em;
+  border-width: 0.1em;
+  border-color: lightgray;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  box-shadow: 0px 4px 10px rgba(50, 50, 50, 0.75);
+}
 select {
   width: auto;
 }
