@@ -18,6 +18,13 @@ defmodule Genialais.Users do
     |> Repo.update()
   end
 
+  @spec set_locale(t(), t()) :: {:ok, t()} | {:error, Ecto.Changeset.t()}
+  def set_locale(user, locale) do
+    user
+    |> User.changeset_locale(%{locale: locale})
+    |> Repo.update()
+  end
+
   @spec is_admin?(t()) :: boolean()
   def is_admin?(%{role: "admin"}), do: true
   def is_admin?(_any), do: false

@@ -31,6 +31,6 @@ defmodule Genialais.Users.User do
   def changeset_locale(user_or_changeset, attrs) do
     user_or_changeset
     |> Ecto.Changeset.cast(attrs, [:locale])
-    |> Ecto.Changeset.validate_inclusion(:role, ~w(en))
+    |> Ecto.Changeset.validate_inclusion(:role, ~w(en fr))
   end
 end

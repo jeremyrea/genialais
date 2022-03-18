@@ -1,4 +1,4 @@
-defmodule GenialaisWeb.EnsureRolePlug do
+defmodule GenialaisWeb.Plugs.EnsureRole do
   @moduledoc """
   This plug ensures that a user has a particular role.
 

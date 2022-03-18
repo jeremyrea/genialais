@@ -15,13 +15,15 @@
     <header>
       <section class="container">
         <nav role="navigation">
-          <ul>
-            <%= if Pow.Plug.current_user(@conn) do %>
-              <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
-            <% else %>
-              <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
+          <%= if Pow.Plug.current_user(@conn) do %>
+            <%= form_for @conn, Routes.user_path(@conn, :update, %{}), fn f -> %>
+              <%= select f, :locale, languages(), selected: Pow.Plug.current_user(@conn).locale, class: "locale-select", onchange: "this.form.submit()" %>
+              <%= hidden_input f, :redirect_to, value: @conn.request_path %>
             <% end %>
-          </ul>
+            <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
+          <% else %>
+            <%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %>
+          <% end %>
         </nav>
         <a href="/">
           <span class="app-title">Genialais</span>
