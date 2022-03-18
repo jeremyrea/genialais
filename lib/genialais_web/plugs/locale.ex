@@ -6,6 +6,10 @@ defmodule GenialaisWeb.Plugs.Locale do
   alias Plug.Conn
   alias Pow.Plug
 
+  def action_name(_conn) do
+    :locale
+  end
+
   def init(default_locale), do: default_locale
   
   def call(conn, current_user) do
