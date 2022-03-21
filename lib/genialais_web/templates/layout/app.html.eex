@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Genialais · Phoenix Framework</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href="/assets/fontawsome-free/css/all.css" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet"> 
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
@@ -30,10 +31,24 @@
         </a>
       </section>
     </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= @inner_content %>
-    </main>
+    <div class="content-wrapper">
+      <%= if Pow.Plug.current_user(@conn) do %>
+      <div class="sidebar">
+        <ul>
+          <li>
+            <%= link gettext("Home"), to: Routes.page_path(@conn, :index), class: active_class(@conn, Routes.page_path(@conn, :index)) %>
+          </li>
+          <li>
+            <%= link gettext("Admin"), to: Routes.admin_path(@conn, :index), class: active_class(@conn, Routes.admin_path(@conn, :index)) %>
+          </li>
+        </ul>
+      </div>
+      <% end %>
+      <main role="main" class="container">
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <%= @inner_content %>
+      </main>
+    </div>
   </body>
 </html>
