@@ -48,7 +48,8 @@ defmodule Genialais.MixProject do
       {:plug_cowboy, "~> 2.5.2"},
       {:pow, "~> 1.0.26"},
       {:bamboo, "~> 2.2.0"},
-      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev}
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
+      {:ex_fontawesome, "~> 0.7.0"}
     ]
   end
 

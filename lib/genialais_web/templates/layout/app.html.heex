@@ -34,11 +34,17 @@
       <%= if Pow.Plug.current_user(@conn) do %>
       <div class="sidebar">
         <ul>
-          <li>
-            <%= link gettext("Home"), to: Routes.page_path(@conn, :index), class: active_class(@conn, Routes.page_path(@conn, :index)) %>
+          <li class={active_class(@conn, Routes.page_path(@conn, :index))}>
+            <a href={Routes.page_path(@conn, :index)}>
+              <FontAwesome.LiveView.icon name="house" />
+              <div><%=gettext "Home" %></div>
+            </a>
           </li>
-          <li>
-            <%= link gettext("Admin"), to: Routes.admin_path(@conn, :index), class: active_class(@conn, Routes.admin_path(@conn, :index)) %>
+          <li class={active_class(@conn, Routes.admin_path(@conn, :index))}>
+            <a href={Routes.admin_path(@conn, :index)}>
+              <FontAwesome.LiveView.icon name="gears" />
+              <div><%=gettext "Admin" %></div>
+            </a>
           </li>
         </ul>
       </div>
