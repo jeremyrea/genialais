@@ -3,6 +3,19 @@ defmodule GenialaisWeb.LayoutView do
 
   alias Genialais.Users.User
 
+  def page_title(conn, assigns) do
+    try do
+      base_name = default_page_title()
+      page = apply(view_module(conn), :page_title, [action_name(conn), assigns])
+      "#{base_name} - #{page}"
+    rescue
+      UndefinedFunctionError -> default_page_title(conn, assigns)
+    end
+  end
+
+  def default_page_title(), do: "Genialais"
+  def default_page_title(_conn, _assigns), do: default_page_title
+
   def languages do
     [
       "🇬🇧": "en", 
