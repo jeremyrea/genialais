@@ -5,9 +5,9 @@ defmodule Genialais.MixProject do
     [
       app: :genialais,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.13.3",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -38,15 +38,17 @@ defmodule Genialais.MixProject do
       {:ecto_sql, "~> 3.7.2"},
       {:ecto_sqlite3, "~> 0.7.3"},
       {:phoenix_html, "~> 3.2.0"},
+      {:phoenix_live_view, "~> 0.17.7"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.6.5"},
       {:telemetry_metrics, "~> 0.6.1"},
-      {:telemetry_poller, "~> 0.5.1"},
+      {:telemetry_poller, "~> 1.0.0"},
       {:gettext, "~> 0.19.1"},
       {:jason, "~> 1.3.0"},
       {:plug_cowboy, "~> 2.5.2"},
       {:pow, "~> 1.0.26"},
-      {:bamboo, "~> 2.2.0"}
+      {:bamboo, "~> 2.2.0"},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev}
     ]
   end
 
@@ -59,6 +61,7 @@ defmodule Genialais.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
