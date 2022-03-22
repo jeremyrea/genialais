@@ -65,6 +65,12 @@ defmodule GenialaisWeb.Router do
     post "/", UserController, :update
   end
 
+  scope "/people", GenialaisWeb do
+    pipe_through [:browser, :protected]
+
+    get "/", PeopleController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", GenialaisWeb do
   #   pipe_through :api
