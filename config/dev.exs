@@ -15,14 +15,9 @@ config :genialais, GenialaisWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
+    watchers: [
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -58,10 +53,6 @@ config :genialais, GenialaisWeb.Endpoint,
       ~r"lib/genialais_web/(live|views)/.*(ex)$",
       ~r"lib/genialais_web/templates/.*(eex)$"
     ]
-  ],
-  watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # Do not include metadata nor timestamps in development logs
