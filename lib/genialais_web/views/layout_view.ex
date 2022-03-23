@@ -24,11 +24,14 @@ defmodule GenialaisWeb.LayoutView do
   end
 
   def active_class(conn, path) do
-    current_path = Path.join(["/" | conn.path_info])
-    if path == current_path do
-      "active"
-    else
-      nil
+    [_head | [base_path | _tail]] = String.split(path, "/")
+
+    conn.path_info
+    |> List.first("")
+    |> String.equivalent?(base_path)
+    |> case do
+      true -> "active"
+      false -> nil
     end
   end
 
