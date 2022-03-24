@@ -8,9 +8,11 @@
       </div>
     <% end %>
 
-    <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-    <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-    <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+    <div class="form-field">
+      <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+      <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+      <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+    </div>
 
     <div>
       <%= submit "Submit" %>
