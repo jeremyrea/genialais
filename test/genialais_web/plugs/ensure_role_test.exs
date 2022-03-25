@@ -1,7 +1,7 @@
-defmodule GenialaisWeb.EnsureRolePlugTest do
+defmodule GenialaisWeb.Plugs.EnsureRoleTest do
   use GenialaisWeb.ConnCase
 
-  alias GenialaisWeb.EnsureRolePlug
+  alias GenialaisWeb.Plugs.EnsureRole
 
   @opts ~w(admin)a
   @visitor %{id: 1, role: "visitor"}
@@ -19,40 +19,40 @@ defmodule GenialaisWeb.EnsureRolePlugTest do
   end
 
   test "call/2 with no user", %{conn: conn} do
-    opts = EnsureRolePlug.init(@opts)
-    conn = EnsureRolePlug.call(conn, opts)
+    opts = EnsureRole.init(@opts)
+    conn = EnsureRole.call(conn, opts)
 
     assert conn.halted
     assert Phoenix.ConnTest.redirected_to(conn) == Routes.page_path(conn, :index)
   end
 
   test "call/2 with non-admin user", %{conn: conn} do
-    opts = EnsureRolePlug.init(@opts)
+    opts = EnsureRole.init(@opts)
     conn =
       conn
       |> Pow.Plug.assign_current_user(@visitor, otp_app: :genialais)
-      |> EnsureRolePlug.call(opts)
+      |> EnsureRole.call(opts)
 
     assert conn.halted
     assert Phoenix.ConnTest.redirected_to(conn) == Routes.page_path(conn, :index)
   end
 
   test "call/2 with non-admin user and multiple roles", %{conn: conn} do
-    opts = EnsureRolePlug.init(~w(visitor editor admin)a)
+    opts = EnsureRole.init(~w(visitor editor admin)a)
     conn =
       conn
       |> Pow.Plug.assign_current_user(@visitor, otp_app: :genialais)
-      |> EnsureRolePlug.call(opts)
+      |> EnsureRole.call(opts)
 
     refute conn.halted
   end
 
   test "call/2 with admin user", %{conn: conn} do
-    opts = EnsureRolePlug.init(@opts)
+    opts = EnsureRole.init(@opts)
     conn =
       conn
       |> Pow.Plug.assign_current_user(@admin, otp_app: :genialais)
-      |> EnsureRolePlug.call(opts)
+      |> EnsureRole.call(opts)
 
     refute conn.halted
   end
