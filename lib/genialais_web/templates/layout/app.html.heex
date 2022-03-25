@@ -40,8 +40,8 @@
               <div><%=gettext "Home" %></div>
             </a>
           </li>
-          <li class={active_class(@conn, Routes.people_path(@conn, :index))}>
-            <a href={Routes.people_path(@conn, :index)}>
+          <li class={active_class(@conn, Routes.individual_path(@conn, :index))}>
+            <a href={Routes.individual_path(@conn, :index)}>
               <FontAwesome.LiveView.icon name="users" />
               <div><%=gettext "People" %></div>
             </a>

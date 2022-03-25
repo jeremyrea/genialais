@@ -65,10 +65,10 @@ defmodule GenialaisWeb.Router do
     post "/", UserController, :update
   end
 
-  scope "/people", GenialaisWeb do
+  scope "/individuals", GenialaisWeb do
     pipe_through [:browser, :protected]
 
-    get "/", PeopleController, :index
+    get "/", IndividualController, :index
   end
 
   # Other scopes may use custom stacks.
