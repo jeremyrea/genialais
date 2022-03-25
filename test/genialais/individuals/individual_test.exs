@@ -3,27 +3,39 @@ defmodule Genialais.Individuals.IndividualTest do
 
   alias Genialais.Individuals.Individual
 
-  test "changeset_gender/2 sets gender" do
+  test "changeset/2 sets gender" do
     individual =
       %Individual{}
-      |> Individual.changeset_gender(%{gender: :male})
+      |> Individual.changeset(%{gender: :male})
       |> Ecto.Changeset.apply_changes()
 
     assert individual.gender == :male
   end
 
-  test "changeset_gender/2 changes gender" do
+  test "changeset/2 changes gender" do
     individual =
       %Individual{gender: :male}
-      |> Individual.changeset_gender(%{gender: :female})
+      |> Individual.changeset(%{gender: :female})
       |> Ecto.Changeset.apply_changes()
 
     assert individual.gender == :female
   end
 
-  test "changeset_gender/2 rejects invalid gender" do
-    changeset = Individual.changeset_gender(%Individual{}, %{gender: :ghost})
+  test "changeset/2 rejects invalid gender" do
+    changeset = Individual.changeset(%Individual{}, %{gender: :ghost})
     assert elem(changeset.errors[:gender], 0) == "is invalid"
     assert elem(changeset.errors[:gender], 1)[:validation] == :cast
+  end
+
+  test "changeset/2 with name parts is applied" do
+    name_parts = %{givenName: "Bobby", surname: "Droptables"}
+    
+    individual =
+      %Individual{}
+      |> Individual.changeset(%{gender: :male, name_parts: name_parts})
+      |> Ecto.Changeset.apply_changes()
+
+    assert individual.name_parts.givenName == "Bobby"
+    assert individual.name_parts.surname == "Droptables"
   end
 end
