@@ -69,6 +69,8 @@ defmodule GenialaisWeb.Router do
     pipe_through [:browser, :protected]
 
     get "/", IndividualController, :index
+    get "/new", IndividualController, :new
+    post "/create", IndividualController, :create
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,47 @@
+<h2><%= gettext("New individual") %></h2>
+
+<%= form_for @changeset, Routes.individual_path(@conn, :create), fn f -> %>
+    <div class="form-group">
+        <div class="form-field">
+            <%= label f, :gender, gettext("Gender") %>
+            <%= select f, :gender, gender_choices(), prompt: "", selected: "" %>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="collapsible">
+            <input id="toggle" type="checkbox" />
+            <%= inputs_for f, :name_parts, fn name_parts -> %>
+                <div class="form-field hidden">
+                    <%= label name_parts, :prefix, gettext("Prefix") %>
+                    <%= text_input name_parts, :prefix %>
+                </div>
+                <div class="form-field">
+                    <%= label name_parts, :givenName, gettext("Given name") %>
+                    <%= text_input name_parts, :givenName %>
+                </div>
+                <div class="form-field">
+                    <%= label name_parts, :nickname, gettext("Alias") %>
+                    <%= text_input name_parts, :nickname %>
+                </div>
+                <div class="break"></div>
+                <div class="form-field hidden">
+                    <%= label name_parts, :surnamePrefix, gettext("Surname prefix") %>
+                    <%= text_input name_parts, :surnamePrefix %>
+                </div>
+                <div class="form-field">
+                    <%= label name_parts, :surname, gettext("Surname") %>
+                    <%= text_input name_parts, :surname %>
+                </div>
+                <div class="form-field hidden">
+                    <%= label name_parts, :suffix, gettext("Suffix") %>
+                    <%= text_input name_parts, :suffix %>
+                </div>
+            <% end %>
+            <label for="toggle" class="toggle-icon">
+                <FontAwesome.LiveView.icon name="circle-plus" class="plus" />
+                <FontAwesome.LiveView.icon name="circle-minus" class="minus" />
+            </label>
+        </div>
+    </div>
+    <%= submit gettext("Submit") %>
+<% end %>
