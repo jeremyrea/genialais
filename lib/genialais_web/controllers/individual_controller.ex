@@ -2,12 +2,18 @@ defmodule GenialaisWeb.IndividualController do
   use GenialaisWeb, :controller
 
   alias Genialais.Repo
+  alias Genialais.Individuals
   alias Genialais.Individuals.Individual
   alias Genialais.Individuals.NameParts
   alias Ecto
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    individuals = 
+      Individuals.list_individuals() 
+      |> Enum.reject(fn x -> x.name_parts == nil end) ## Temporary
+      |> Enum.map(fn x -> x.name_parts.givenName end)
+
+    render(conn, "index.html", data: individuals)
   end
 
   def new(conn, _params) do
