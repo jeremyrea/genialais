@@ -7,13 +7,9 @@ defmodule GenialaisWeb.IndividualController do
   alias Genialais.Individuals.NameParts
   alias Ecto
 
-  def index(conn, _params) do
-    individuals = 
-      Individuals.list_individuals() 
-      |> Enum.reject(fn x -> x.name_parts == nil end) ## Temporary
-      |> Enum.map(fn x -> x.name_parts.givenName end)
 
-    render(conn, "index.html", data: individuals)
+  def index(conn, params) do
+    render(conn, "index.html", data: list_individuals(params))
   end
 
   def new(conn, _params) do
@@ -33,5 +29,11 @@ defmodule GenialaisWeb.IndividualController do
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  defp list_individuals(params) do
+    Individuals.list_individuals(params) 
+    |> Enum.reject(fn x -> x.name_parts == nil end) ## Temporary
+    |> Enum.map(fn x -> %{givenName: x.name_parts.givenName, gender: x.gender} end)
   end
 end

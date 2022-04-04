@@ -44,6 +44,15 @@ defmodule GenialaisWeb do
     end
   end
 
+  def component do
+    quote do
+      use Phoenix.Component
+      use Phoenix.HTML
+
+      import GenialaisWeb.Gettext
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
