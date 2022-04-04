@@ -11,4 +11,12 @@ defmodule GenialaisWeb.IndividualView do
       "#{gettext("Unknown")}": :unknown
     ]
   end
+
+  def list_columns do
+    [
+      givenName: gettext("Given name"),
+      surname: gettext("Surname"),
+      gender: gettext("Gender")
+    ]
+  end
 end

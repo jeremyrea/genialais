@@ -10,7 +10,7 @@ defmodule Genialais.Individuals do
 
   def list_individuals(params) do
     Individual
-    |> select([i, n], [:id, :gender, n: [:givenName]])
+    |> select([i, n], [:id, :gender, n: [:givenName, :surname]])
     |> join(:left, [i], assoc(i, :name_parts), as: :name_parts) 
     |> order_by(^filter_order_by(sort(params)))
     |> preload([i, n], name_parts: n)
@@ -20,8 +20,11 @@ defmodule Genialais.Individuals do
   defp filter_order_by({order, "gender"}),
     do: [{order, dynamic([i], i.gender)}]
 
-  defp filter_order_by({order, "name_parts.givenName"}),
+  defp filter_order_by({order, "givenName"}),
     do: [{order, dynamic([name_parts: n], n.givenName)}]
+
+  defp filter_order_by({order, "surname"}),
+    do: [{order, dynamic([name_parts: n], n.surname)}]
 
   defp filter_order_by(_),
     do: []

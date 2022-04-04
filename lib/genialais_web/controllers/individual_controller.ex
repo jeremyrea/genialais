@@ -9,7 +9,10 @@ defmodule GenialaisWeb.IndividualController do
 
 
   def index(conn, params) do
-    render(conn, "index.html", data: list_individuals(params))
+    columns = view_module(conn).list_columns()
+    rows = list_individuals(params)
+
+    render(conn, "index.html", data: %{columns: columns, rows: rows})
   end
 
   def new(conn, _params) do
@@ -34,6 +37,10 @@ defmodule GenialaisWeb.IndividualController do
   defp list_individuals(params) do
     Individuals.list_individuals(params) 
     |> Enum.reject(fn x -> x.name_parts == nil end) ## Temporary
-    |> Enum.map(fn x -> %{givenName: x.name_parts.givenName, gender: x.gender} end)
+    |> Enum.map(fn x -> %{
+      givenName: x.name_parts.givenName, 
+      surname: x.name_parts.surname,
+      gender: x.gender
+     } end)
   end
 end

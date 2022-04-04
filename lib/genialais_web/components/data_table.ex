@@ -1,29 +1,27 @@
 defmodule GenialaisWeb.Components.DataTable do
   use GenialaisWeb, :component
 
-  @spec table(%{params: map(), data: [map()]}) :: String
+  @spec table(%{params: map(), data: map()}) :: String
   def table(assigns) do
     ~H"""
     <table>
       <thead>
         <tr>
-          <th>
-            <%= table_link("Name", @params, "name_parts.givenName") %>
-          </th>
-          <th>
-            <%= table_link("Gender", @params, "gender") %>
-          </th>
+          <%= for {key, title} <- @data.columns do %>
+            <th>
+              <%= table_link(title, @params, key) %>
+            </th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
-        <%= for individual <- @data do %>
+        <%= for individual <- @data.rows do %>
         <tr>
-          <td>
-              <%= individual.givenName %>
-          </td>
-          <td>
-              <%= individual.gender %>
-          </td>
+          <%= for {key, _} <- @data.columns do %>
+            <td>
+              <%= individual[key] %>
+            </td>
+          <% end %>
         </tr>
         <% end %>
       </tbody>
