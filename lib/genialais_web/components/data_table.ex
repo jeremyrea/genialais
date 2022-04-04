@@ -15,11 +15,11 @@ defmodule GenialaisWeb.Components.DataTable do
         </tr>
       </thead>
       <tbody>
-        <%= for individual <- @data.rows do %>
+        <%= for row <- @data.rows do %>
         <tr>
           <%= for {key, _} <- @data.columns do %>
             <td>
-              <%= individual[key] %>
+              <%= row[key] %>
             </td>
           <% end %>
         </tr>
