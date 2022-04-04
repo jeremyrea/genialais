@@ -1,6 +1,7 @@
 defmodule GenialaisWeb.Components.DataTable do
   use GenialaisWeb, :component
 
+  @spec table(%{params: map(), data: [map()]}) :: String
   def table(assigns) do
     ~H"""
     <table>
@@ -30,6 +31,7 @@ defmodule GenialaisWeb.Components.DataTable do
     """
   end
 
+  @spec table_link(String.t, map(), String.t) :: String
   defp table_link(label, params, field) do
       params = params
       |> Plug.Conn.Query.encode() 
@@ -54,6 +56,7 @@ defmodule GenialaisWeb.Components.DataTable do
       link(label, to: "?" <> querystring(params, opts))
   end
 
+  @spec querystring(map(), map()) :: String
   defp querystring(params, opts \\ %{}) do
       opts = %{
       "page" => opts[:page], # For the pagination
