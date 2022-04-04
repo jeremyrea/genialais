@@ -62,8 +62,3 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 export default socket
-
-
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
-liveSocket.connect()
