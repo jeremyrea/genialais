@@ -306,3 +306,25 @@ div.sidebar svg {
 .collapsible #toggle:checked ~ .hidden {
   display: initial;
 }
+
+.datatable input[type="search"] {
+  width: 40%;
+}
+
+.datatable button[type="submit"] {
+  width: 2em;
+  padding-left: 0.8em;
+}
+
+.datatable button[type="submit"] svg {
+  height: 2em;
+  width: 2em;
+  vertical-align: middle;
+  fill: white;
+}
+
+.datatable button[type="submit"]:active svg {
+  height: 1.8em;
+  width: 1.8em;
+  transform: translateX(0.1em);
+}

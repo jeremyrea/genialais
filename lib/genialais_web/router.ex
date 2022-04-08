@@ -69,6 +69,7 @@ defmodule GenialaisWeb.Router do
     pipe_through [:browser, :protected]
 
     get "/", IndividualController, :index
+    post "/search", IndividualController, :search
     get "/new", IndividualController, :new
     post "/create", IndividualController, :create
   end

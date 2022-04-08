@@ -4,28 +4,36 @@ defmodule GenialaisWeb.Components.DataTable do
   @spec table(%{params: map(), data: map()}) :: String
   def table(assigns) do
     ~H"""
-    <table>
-      <thead>
-        <tr>
-          <%= for {key, title} <- @data.columns do %>
-            <th>
-              <%= table_link(title, @params, key) %>
-            </th>
+    <div class="datatable">
+      <%= form_for :search, "individuals/search", fn f -> %>
+        <%= search_input f, :query, value: @params["query"] %>
+        <button type="submit">
+           <FontAwesome.LiveView.icon name="magnifying-glass" />
+        </button>
+      <% end %>
+      <table>
+        <thead>
+          <tr>
+            <%= for {key, title} <- @data.columns do %>
+              <th>
+                <%= table_link(title, @params, key) %>
+              </th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for row <- @data.rows do %>
+          <tr>
+            <%= for {key, _} <- @data.columns do %>
+              <td>
+                <%= row[key] %>
+              </td>
+            <% end %>
+          </tr>
           <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for row <- @data.rows do %>
-        <tr>
-          <%= for {key, _} <- @data.columns do %>
-            <td>
-              <%= row[key] %>
-            </td>
-          <% end %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
     """
   end
 
@@ -59,7 +67,8 @@ defmodule GenialaisWeb.Components.DataTable do
       opts = %{
       "page" => opts[:page], # For the pagination
       "sort_field" => opts[:sort_field] || params["sort_field"] || nil,
-      "sort_direction" => opts[:sort_direction] || params["sort_direction"] || nil
+      "sort_direction" => opts[:sort_direction] || params["sort_direction"] || nil,
+      "query" => opts[:query] || params["query"] || nil
       }
 
       params
@@ -73,6 +82,28 @@ defmodule GenialaisWeb.Components.DataTable do
   defp reverse(_), do: "desc"
 
   # Exportable helper functions for entity service queries
+  def search(%{"query" => query}) do
+    case query do
+      "" -> nil
+      _ -> "#{query}"
+    end
+  end
+
+  def search(_) do
+    nil
+  end
+
+  def search_like(%{"query" => query}) do
+    case query do
+      "" -> nil
+      _ -> "%#{query}%"
+    end
+  end
+
+  def search_like(_) do
+    nil
+  end
+
   def sort(%{"sort_field" => field, "sort_direction" => direction}) when direction in ~w(asc desc) do
     {String.to_atom(direction), field}
   end

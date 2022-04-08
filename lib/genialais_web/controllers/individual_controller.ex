@@ -15,6 +15,26 @@ defmodule GenialaisWeb.IndividualController do
     render(conn, "index.html", data: %{columns: columns, rows: rows})
   end
 
+  def search(conn, %{"search" => query}) do
+    prevParams = get_req_header(conn, "referer")
+    |> List.first()
+    |> String.split("?")
+    |> List.last()
+    |> String.split("&")
+    |> Enum.map(fn x -> String.split(x, "=") end)
+    |> List.flatten()
+    |> Enum.chunk(2)
+    |> Map.new(fn [k, v] -> {k, v} end)
+
+    newParams = prevParams
+    |> Map.merge(query)
+    |> Enum.filter(fn {_, v} -> v != nil && String.length(v) > 0 end)
+    |> Enum.into(%{})
+
+    conn 
+    |> redirect(to: Routes.individual_path(conn, :index, newParams))
+  end
+
   def new(conn, _params) do
     changeset = Individual.changeset(%Individual{name_parts: %NameParts{}}, %{})
     render(conn, "new.html", changeset: changeset)
