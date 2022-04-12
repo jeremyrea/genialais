@@ -12,6 +12,15 @@ defmodule GenialaisWeb.IndividualView do
     ]
   end
 
+  # Returns fontawesome icon name 
+  def gender_icon(gender) do
+    case gender do
+      :male -> "mars"
+      :female -> "venus"
+      _ -> "genderless"
+    end
+  end
+
   def list_columns do
     [
       givenName: gettext("Given name"),

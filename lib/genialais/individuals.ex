@@ -6,6 +6,13 @@ defmodule Genialais.Individuals do
   alias Genialais.Individuals.NameParts
 
   @type t :: %Individual{}
+
+  @spec get_individual(integer) :: Individual
+  def get_individual(id) do
+    Individual 
+    |> Repo.get(id) 
+    |> Repo.preload([:name_parts])
+  end
   
   def list_individuals(params) do
     Individual

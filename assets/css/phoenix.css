@@ -328,3 +328,20 @@ div.sidebar svg {
   width: 1.8em;
   transform: translateX(0.1em);
 }
+
+.gender {
+  height: 0.75em;
+  width: 0.75em;
+}
+
+.gender.male {
+  fill: #89cff0;
+}
+
+.gender.female {
+  fill: #ea80b0;
+}
+
+.gender.unknown {
+  fill: lightgrey;
+}

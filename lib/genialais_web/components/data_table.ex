@@ -29,6 +29,9 @@ defmodule GenialaisWeb.Components.DataTable do
                 <%= row[key] %>
               </td>
             <% end %>
+            <td>
+              <%= link "Edit", to: "individuals/#{row[:id]}" %>
+            </td>
           </tr>
           <% end %>
         </tbody>

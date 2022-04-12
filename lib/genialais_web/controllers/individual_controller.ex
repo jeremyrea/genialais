@@ -54,10 +54,16 @@ defmodule GenialaisWeb.IndividualController do
     end
   end
 
+  def show(conn, %{"id" => id}) do
+    individual = Individuals.get_individual(id)
+    render(conn, "show.html", individual: individual)
+  end
+
   defp list_individuals(params) do
     Individuals.list_individuals(params) 
     |> Enum.reject(fn x -> x.name_parts == nil end) ## Temporary
     |> Enum.map(fn x -> %{
+      id: x.id,
       givenName: x.name_parts.givenName, 
       surname: x.name_parts.surname,
       gender: x.gender
