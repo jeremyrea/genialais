@@ -19,6 +19,7 @@ defmodule GenialaisWeb.Components.DataTable do
                 <%= table_link(title, @params, key) %>
               </th>
             <% end %>
+            <th></th>
           </tr>
         </thead>
         <tbody>
