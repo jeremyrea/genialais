@@ -2,4 +2,4 @@
 
 <%= link(gettext("Add"), to: Routes.individual_path(@conn, :new), method: :get, class: "btn") %>
 <br>
-<%= GenialaisWeb.Components.DataTable.table %{:params => @conn.query_params, :data => @data} %>
+<%= GenialaisWeb.Components.DataTable.table %{:params => @conn.query_params, :data => @data, :controller => "individuals"} %>

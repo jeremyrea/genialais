@@ -1,11 +1,11 @@
 defmodule GenialaisWeb.Components.DataTable do
   use GenialaisWeb, :component
 
-  @spec table(%{params: map(), data: map()}) :: String
+  @spec table(%{params: map(), data: map(), controller: string}) :: String
   def table(assigns) do
     ~H"""
     <div class="datatable">
-      <%= form_for :search, "individuals/search", fn f -> %>
+      <%= form_for :search, "#{@controller}/search", fn f -> %>
         <%= search_input f, :query, value: @params["query"] %>
         <button type="submit">
            <FontAwesome.LiveView.icon name="magnifying-glass" />
@@ -31,7 +31,7 @@ defmodule GenialaisWeb.Components.DataTable do
               </td>
             <% end %>
             <td>
-              <%= link "Edit", to: "individuals/#{row[:id]}" %>
+              <%= link "Edit", to: "#{@controller}/#{row[:id]}" %>
             </td>
           </tr>
           <% end %>
